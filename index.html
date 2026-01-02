@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Cocktail Party</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-cream: #F9F7F2;
+            --wine-red: #8B0000;
+            --forest-green: #1B4D3E;
+            --gold: #C5A059;
+            --text-dark: #2C2C2C;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: 'Cormorant Garamond', serif;
+            -webkit-font-smoothing: antialiased;
+            touch-action: manipulation;
+            overflow-x: hidden;
+        }
+
+        /* Elegant Border Frame - Adapted for Mobile */
+        .page-frame {
+            position: fixed;
+            inset: clamp(0.5rem, 3vw, 1.5rem);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            pointer-events: none;
+            z-index: 50;
+        }
+        .page-frame::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 0.5px solid rgba(197, 160, 89, 0.15);
+        }
+
+        /* Hide frame on very small screens to save space */
+        @media (max-width: 480px) {
+            .page-frame { display: none; }
+        }
+
+        .luxury-title {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .label-text {
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.35em;
+            font-size: clamp(0.6rem, 2vw, 0.75rem);
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: clamp(2rem, 8vh, 6rem) clamp(1rem, 5vw, 4rem);
+        }
+
+        .menu-item {
+            position: relative;
+            padding: clamp(2rem, 5vh, 3.5rem) 1rem;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            background: transparent;
+            transition: background 0.4s ease;
+            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+            min-height: clamp(200px, 30vh, 260px);
+            justify-content: center;
+        }
+
+        /* Active state for touch instead of hover */
+        .menu-item:active {
+            background: rgba(197, 160, 89, 0.08);
+            transition: background 0.1s ease;
+        }
+
+        /* Decorative dots that stay visible but subtle on mobile */
+        .menu-item::before {
+            content: '✦';
+            position: absolute;
+            top: 1.5rem;
+            color: var(--gold);
+            opacity: 0.25;
+            font-size: 0.7rem;
+        }
+
+        .sparkle {
+            position: fixed;
+            color: var(--gold);
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            text-shadow: 0 0 10px rgba(197, 160, 89, 0.8);
+            animation: elegantFade 6s infinite;
+        }
+
+        @keyframes elegantFade {
+            0%, 100% { opacity: 0; transform: translateY(0) scale(0.7); }
+            30%, 70% { opacity: 0.6; transform: translateY(-15px) scale(1.1); }
+            50% { opacity: 0.9; transform: translateY(-30px) scale(1.4); }
+        }
+
+        #modal-overlay {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        #modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 0;
+            box-shadow: 0 50px 150px rgba(0,0,0,0.12);
+            max-width: 700px;
+            width: 100%;
+            padding: clamp(3rem, 10vh, 6rem) clamp(1.5rem, 5vw, 4rem);
+            position: relative;
+            border: 1px solid rgba(197, 160, 89, 0.25);
+            max-height: 95vh;
+            overflow-y: auto;
+            margin: 1rem;
+        }
+
+        .prediction-wrapper {
+            margin-top: clamp(2rem, 6vh, 5rem);
+            padding-top: clamp(2rem, 5vh, 4rem);
+            position: relative;
+        }
+
+        .prediction-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .prediction-text {
+            font-style: italic;
+            font-size: clamp(1.4rem, 4.5vw, 2.2rem);
+            line-height: 1.5;
+            color: var(--forest-green);
+            font-weight: 300;
+        }
+
+        .accent-line {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            margin: 2rem auto;
+            position: relative;
+        }
+
+        .accent-line::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-cream);
+            padding: 0 10px;
+            font-size: 0.7rem;
+            color: var(--gold);
+        }
+
+        .ornament {
+            max-width: 180px;
+            margin: 0 auto;
+            opacity: 0.4;
+            color: var(--gold);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr 1fr;
+                column-gap: 3rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .menu-grid {
+                column-gap: 5rem;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <div class="page-frame"></div>
+
+    <div id="sparkle-container"></div>
+
+    <!-- Paper Texture Overlay -->
+    <div class="fixed inset-0 pointer-events-none opacity-[0.06] z-0" style="background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');"></div>
+
+    <main class="main-container relative z-10">
+        
+        <header class="text-center mb-[clamp(2.5rem,8vh,7rem)]">
+            <div class="ornament mb-4 md:mb-6">
+                <svg viewBox="0 0 100 20" fill="currentColor">
+                    <path d="M0 10 Q25 0 50 10 T100 10" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                    <circle cx="50" cy="10" r="1.5"/>
+                </svg>
+            </div>
+            <p class="label-text mb-4 md:mb-6 text-[#1B4D3E]">Est. 2026 Celebration</p>
+            <h1 class="luxury-title text-[clamp(2.5rem,9vw,6rem)] text-[#8B0000] mb-3 leading-tight font-bold">Christmas</h1>
+            <h2 class="font-serif italic text-[clamp(2rem,7vw,4.5rem)] text-[#1B4D3E] font-light">Cocktail Party</h2>
+            <div class="accent-line"></div>
+        </header>
+
+        <div class="menu-grid">
+            
+            <div class="menu-item" onclick="openMenu('Christmopolitan', 'tart cranberry, silky almond, festive spice')">
+                <h3 class="luxury-title text-[clamp(1.2rem,3vw,1.8rem)] text-[#8B0000]">Christmopolitan</h3>
+                <p class="italic text-[clamp(1rem,2.5vw,1.4rem)] text-gray-500 mt-4 font-light">tart cranberry, silky almond, festive spice</p>
+            </div>
+
+             <div class="menu-item" onclick="openMenu('Amaretto Sour', 'sweet almond, sharp lemon, silky foam')">
+                <h3 class="luxury-title text-[clamp(1.2rem,3vw,1.8rem)] text-[#8B0000]">Amaretto Sour</h3>
+                <p class="italic text-[clamp(1rem,2.5vw,1.4rem)] text-gray-500 mt-4 font-light">sweet almond, sharp lemon, silky foam</p>
+            </div>
+
+            <div class="menu-item" onclick="openMenu('Cinnamon & Pomegranate', 'warming spice, bold pomegranate, bright citrus')">
+                <h3 class="luxury-title text-[clamp(1.2rem,3vw,1.8rem)] text-[#8B0000]">Cinnamon & Pomegranate</h3>
+                <p class="italic text-[clamp(1rem,2.5vw,1.4rem)] text-gray-500 mt-4 font-light">warming spice, bold pomegranate, bright citrus</p>
+            </div>
+
+            <div class="menu-item" onclick="openMenu('Pomegranate Martini', 'tangy pomegranate, clean citrus, crisp finish')">
+                <h3 class="luxury-title text-[clamp(1.2rem,3vw,1.8rem)] text-[#8B0000]">Pomegranate Martini</h3>
+                <p class="italic text-[clamp(1rem,2.5vw,1.4rem)] text-gray-500 mt-4 font-light">tangy pomegranate, clean citrus, crisp finish</p>
+            </div>
+
+            <div class="menu-item" onclick="openMenu('Peppermint Cappuccino', 'rich coffee, cool peppermint, creamy velvet')">
+                <h3 class="luxury-title text-[clamp(1.2rem,3vw,1.8rem)] text-[#8B0000]">Peppermint Cappuccino</h3>
+                <p class="italic text-[clamp(1rem,2.5vw,1.4rem)] text-gray-500 mt-4 font-light">rich coffee, cool peppermint, creamy velvet</p>
+            </div>
+
+            <div class="menu-item" onclick="openMenu('Sugar Cookie Martini', 'vanilla cream, sweet almond, buttery smooth')">
+                <h3 class="luxury-title text-[clamp(1.2rem,3vw,1.8rem)] text-[#8B0000]">Sugar Cookie Martini</h3>
+                <p class="italic text-[clamp(1rem,2.5vw,1.4rem)] text-gray-500 mt-4 font-light">vanilla cream, sweet almond, buttery smooth</p>
+            </div>
+
+            <div class="menu-item" onclick="openMenu('Christmas Negroni', 'crisp gin, festive clove, mellow vermouth')">
+                <h3 class="luxury-title text-[clamp(1.2rem,3vw,1.8rem)] text-[#8B0000]">Christmas Negroni</h3>
+                <p class="italic text-[clamp(1rem,2.5vw,1.4rem)] text-gray-500 mt-4 font-light">crisp gin, festive clove, mellow vermouth</p>
+            </div>
+
+            <div class="menu-item" onclick="openMenu('Cherry Manhattan', 'oaky whiskey, deep cherry, vanilla spice')">
+                <h3 class="luxury-title text-[clamp(1.2rem,3vw,1.8rem)] text-[#8B0000]">Cherry Manhattan</h3>
+                <p class="italic text-[clamp(1rem,2.5vw,1.4rem)] text-gray-500 mt-4 font-light">oaky whiskey, deep cherry, vanilla spice</p>
+            </div>
+
+        </div>
+
+        <footer class="mt-[clamp(3rem,10vh,8rem)] text-center">
+            <div class="accent-line mb-8"></div>
+            <span class="label-text opacity-40">✦ Winter Night Selection 2026 ✦</span>
+        </footer>
+
+    </main>
+
+    <div id="modal-overlay" class="fixed inset-0 z-[100] flex items-center justify-center bg-[#F9F7F2]/98 backdrop-blur-xl" onclick="closeMenu()">
+        <div class="modal-card text-center" onclick="event.stopPropagation()">
+            <button class="absolute top-4 right-4 md:top-8 md:right-8 text-3xl font-light opacity-30 hover:opacity-100 transition-opacity p-4" onclick="closeMenu()">✕</button>
+            
+            <p class="label-text text-[#C5A059] mb-4 md:mb-6">Cocktail Notes</p>
+            <h2 id="m-title" class="luxury-title text-[clamp(1.8rem,6vw,3.2rem)] text-[#8B0000] mb-3 leading-tight">Title</h2>
+            <p id="m-desc" class="italic text-[clamp(1.1rem,3vw,1.8rem)] text-gray-400 font-light mb-8 md:mb-12">Description</p>
+            
+            <div class="prediction-wrapper">
+                <p class="label-text text-[#C5A059] mb-6 md:mb-8">Your 2026 Fortune</p>
+                <p id="m-pred" class="prediction-text font-serif italic"></p>
+                <div class="mt-12 md:mt-16 text-3xl text-[#C5A059] opacity-40">✦</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sparkleContainer = document.getElementById('sparkle-container');
+        // Reduce sparkle density for mobile performance
+        const sparkleCount = window.innerWidth < 768 ? 15 : 25;
+        
+        for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.innerHTML = '✦';
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            sparkle.style.fontSize = (Math.random() * 14 + 10) + 'px';
+            sparkle.style.animationDelay = (Math.random() * 6) + 's';
+            sparkleContainer.appendChild(sparkle);
+        }
+
+        const predictions = [
+            "Your Wi-Fi will be fast and your coffee will be hot.",
+            "You will finally remember why you walked into that room.",
+            "You will perfectly time your arrival to the party's best moment.",
+            "You will find money in a jacket you haven't worn in a year.",
+            "Your 2026 will have fewer plans and more adventures.",
+            "Your phone battery will stay at 1% for a surprisingly long time.",
+            "You will discover a restaurant that feels like it was made for you.",
+            "All your travel plans will align perfectly without any stress.",
+            "You will find a meme so funny it explains your entire life.",
+            "The person you're thinking about is also thinking of you (the good way).",
+            "You will win an argument in your head with 10/10 logic.",
+            "Your avocado will stay perfectly ripe for three whole days.",
+            "An old friend will send you a text that makes your day.",
+            "You will accidentally start a successful new habit.",
+            "A spontaneous gift will arrive just when you need it most.",
+            "You will look exceptionally good in every candid photo this year.",
+            "Someone will pay for your drink just because.",
+            "You will finally finish that book everyone told you to read.",
+            "Your sense of humor will get you out of a sticky situation.",
+            "A spontaneous trip will turn into your favorite memory.",
+            "You will find the 'missing' sock in the very next laundry load.",
+            "Your 2026 will be filled with laughter and zero awkward silences.",
+            "A nap will actually make you feel refreshed, for once.",
+            "You will discover a song that becomes your personal anthem.",
+            "Success is coming, but first... another cocktail.",
+            "The perfect white t-shirt will finally find its way to your wardrobe.",
+            "You will master the art of choosing the shortest queue at the supermarket.",
+            "Your plants will flourish even if you forget to water them occasionally.",
+            "You will finally find a use for that one mysterious cable in your drawer.",
+            "The universe will conspire to give you the perfect lighting for a selfie.",
+            "Your next haircut will be exactly what you wanted, the very first time.",
+            "You will successfully parallel park on the first attempt with witnesses.",
+            "A series of fortunate events will start with a simple cup of tea.",
+            "You will wake up five minutes before your alarm, feeling completely rested.",
+            "Someone will genuinely laugh at a joke you weren't even sure was funny.",
+            "Your favorite snack will be on sale just when you're craving it.",
+            "You will experience a day where every green light is perfectly timed.",
+            "A long-lost item will reappear exactly where you already looked twice.",
+            "Your intuition will lead you to the best slice of cake in the city.",
+            "The year 2026 will be the year you finally understand your own aesthetic."
+        ];
+
+        function openMenu(title, desc) {
+            const overlay = document.getElementById('modal-overlay');
+            document.getElementById('m-title').innerText = title;
+            document.getElementById('m-desc').innerText = desc;
+            
+            const randomPred = predictions[Math.floor(Math.random() * predictions.length)];
+            document.getElementById('m-pred').innerText = `"${randomPred}"`;
+            
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeMenu() {
+            document.getElementById('modal-overlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>
