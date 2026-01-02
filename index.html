@@ -77,9 +77,24 @@
             padding: 2vh clamp(1rem, 5vw, 4rem);
         }
 
+        .header-decor {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 4rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .elegant-tree {
+            color: var(--gold);
+            opacity: 0.7;
+            width: clamp(40px, 8vw, 80px);
+            height: auto;
+        }
+
         .menu-item {
             position: relative;
-            padding: 1vh 1rem;
+            padding: 0.8vh 1rem;
             border-bottom: 1px solid rgba(197, 160, 89, 0.15);
             display: flex;
             flex-direction: column;
@@ -101,7 +116,7 @@
         .menu-item::before {
             content: '✦';
             position: absolute;
-            top: 0.4rem;
+            top: 0.2rem;
             color: var(--gold);
             opacity: 0.2;
             font-size: 0.6rem;
@@ -173,7 +188,7 @@
         }
 
         .accent-line {
-            width: 40px;
+            width: 60px;
             height: 1px;
             background: var(--gold);
             margin: 1.5vh auto;
@@ -187,15 +202,8 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background: var(--bg-cream);
-            padding: 0 8px;
-            font-size: 0.6rem;
-            color: var(--gold);
-        }
-
-        .ornament {
-            max-width: 140px;
-            margin: 0 auto;
-            opacity: 0.3;
+            padding: 0 10px;
+            font-size: 0.8rem;
             color: var(--gold);
         }
 
@@ -209,7 +217,7 @@
         @media (min-width: 641px) {
             .menu-grid {
                 grid-template-columns: 1fr 1fr;
-                column-gap: 2rem;
+                column-gap: 3rem;
             }
         }
     </style>
@@ -224,59 +232,79 @@
 
     <main class="main-container relative z-10">
         
-        <header class="text-center mb-4">
-            <div class="ornament mb-2">
-                <svg viewBox="0 0 100 20" fill="currentColor">
-                    <path d="M0 10 Q25 0 50 10 T100 10" fill="none" stroke="currentColor" stroke-width="0.5"/>
-                    <circle cx="50" cy="10" r="1.5"/>
+        <header class="text-center mb-6">
+            <div class="header-decor">
+                <!-- Left Elegant Tree SVG -->
+                <svg class="elegant-tree" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 10L35 40H65L50 10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M50 30L30 65H70L50 30Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M50 55L25 95H75L50 55Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M50 95V110" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="50" cy="8" r="1.5" fill="currentColor"/>
+                    <circle cx="35" cy="40" r="1" fill="currentColor"/>
+                    <circle cx="65" cy="40" r="1" fill="currentColor"/>
+                </svg>
+                
+                <div class="flex flex-col items-center">
+                    <p class="label-text mb-1 text-[#1B4D3E]">Est. 2026 Celebration</p>
+                    <h1 class="luxury-title text-[clamp(2.5rem,7vw,5rem)] text-[#8B0000] leading-none font-bold">Christmas</h1>
+                    <h2 class="font-serif italic text-[clamp(1.8rem,5vw,3.5rem)] text-[#1B4D3E] font-light">Cocktail Party</h2>
+                </div>
+
+                <!-- Right Elegant Tree SVG -->
+                <svg class="elegant-tree" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 10L35 40H65L50 10Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M50 30L30 65H70L50 30Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M50 55L25 95H75L50 55Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M50 95V110" stroke="currentColor" stroke-width="1.5"/>
+                    <circle cx="50" cy="8" r="1.5" fill="currentColor"/>
+                    <circle cx="35" cy="40" r="1" fill="currentColor"/>
+                    <circle cx="65" cy="40" r="1" fill="currentColor"/>
                 </svg>
             </div>
-            <p class="label-text mb-2 text-[#1B4D3E]">Est. 2026 Celebration</p>
-            <h1 class="luxury-title text-[clamp(2.2rem,6vw,4.5rem)] text-[#8B0000] mb-1 leading-tight font-bold">Christmas</h1>
-            <h2 class="font-serif italic text-[clamp(1.6rem,4vw,3.2rem)] text-[#1B4D3E] font-light">Cocktail Party</h2>
             <div class="accent-line"></div>
         </header>
 
         <div class="menu-grid">
             
             <div class="menu-item" onclick="openMenu('Christmopolitan', 'tart cranberry, silky almond, festive spice')">
-                <h3 class="luxury-title text-[clamp(1.1rem,2.2vw,1.6rem)] text-[#8B0000]">Christmopolitan</h3>
-                <p class="italic text-[clamp(0.95rem,1.9vw,1.3rem)] text-gray-500 mt-1 font-light tracking-wide">tart cranberry, silky almond, festive spice</p>
+                <h3 class="luxury-title text-[clamp(1.3rem,2.5vw,1.8rem)] text-[#8B0000]">Christmopolitan</h3>
+                <p class="italic text-[clamp(1rem,2vw,1.4rem)] text-gray-500 mt-1 font-light tracking-wide">tart cranberry, silky almond, festive spice</p>
             </div>
 
              <div class="menu-item" onclick="openMenu('Amaretto Sour', 'sweet almond, sharp lemon, silky foam')">
-                <h3 class="luxury-title text-[clamp(1.1rem,2.2vw,1.6rem)] text-[#8B0000]">Amaretto Sour</h3>
-                <p class="italic text-[clamp(0.95rem,1.9vw,1.3rem)] text-gray-500 mt-1 font-light tracking-wide">sweet almond, sharp lemon, silky foam</p>
+                <h3 class="luxury-title text-[clamp(1.3rem,2.5vw,1.8rem)] text-[#8B0000]">Amaretto Sour</h3>
+                <p class="italic text-[clamp(1rem,2vw,1.4rem)] text-gray-500 mt-1 font-light tracking-wide">sweet almond, sharp lemon, silky foam</p>
             </div>
 
             <div class="menu-item" onclick="openMenu('Cinnamon Margarita', 'warming spice, bold pomegranate, bright citrus')">
-                <h3 class="luxury-title text-[clamp(1.1rem,2.2vw,1.6rem)] text-[#8B0000]">Cinnamon Margarita</h3>
-                <p class="italic text-[clamp(0.95rem,1.9vw,1.3rem)] text-gray-500 mt-1 font-light tracking-wide">warming spice, bold pomegranate, bright citrus</p>
+                <h3 class="luxury-title text-[clamp(1.3rem,2.5vw,1.8rem)] text-[#8B0000]">Cinnamon Margarita</h3>
+                <p class="italic text-[clamp(1rem,2vw,1.4rem)] text-gray-500 mt-1 font-light tracking-wide">warming spice, bold pomegranate, bright citrus</p>
             </div>
 
             <div class="menu-item" onclick="openMenu('Pomegranate Martini', 'tangy pomegranate, clean citrus, crisp finish')">
-                <h3 class="luxury-title text-[clamp(1.1rem,2.2vw,1.6rem)] text-[#8B0000]">Pomegranate Martini</h3>
-                <p class="italic text-[clamp(0.95rem,1.9vw,1.3rem)] text-gray-500 mt-1 font-light tracking-wide">tangy pomegranate, clean citrus, crisp finish</p>
+                <h3 class="luxury-title text-[clamp(1.3rem,2.5vw,1.8rem)] text-[#8B0000]">Pomegranate Martini</h3>
+                <p class="italic text-[clamp(1rem,2vw,1.4rem)] text-gray-500 mt-1 font-light tracking-wide">tangy pomegranate, clean citrus, crisp finish</p>
             </div>
 
             <div class="menu-item" onclick="openMenu('Peppermint Cappuccino', 'rich coffee, cool peppermint, creamy velvet')">
-                <h3 class="luxury-title text-[clamp(1.1rem,2.2vw,1.6rem)] text-[#8B0000]">Peppermint Cappuccino</h3>
-                <p class="italic text-[clamp(0.95rem,1.9vw,1.3rem)] text-gray-500 mt-1 font-light tracking-wide">rich coffee, cool peppermint, creamy velvet</p>
+                <h3 class="luxury-title text-[clamp(1.3rem,2.5vw,1.8rem)] text-[#8B0000]">Peppermint Cappuccino</h3>
+                <p class="italic text-[clamp(1rem,2vw,1.4rem)] text-gray-500 mt-1 font-light tracking-wide">rich coffee, cool peppermint, creamy velvet</p>
             </div>
 
             <div class="menu-item" onclick="openMenu('Sugar Cookie Martini', 'vanilla cream, sweet almond, buttery smooth')">
-                <h3 class="luxury-title text-[clamp(1.1rem,2.2vw,1.6rem)] text-[#8B0000]">Sugar Cookie Martini</h3>
-                <p class="italic text-[clamp(0.95rem,1.9vw,1.3rem)] text-gray-500 mt-1 font-light tracking-wide">vanilla cream, sweet almond, buttery smooth</p>
+                <h3 class="luxury-title text-[clamp(1.3rem,2.5vw,1.8rem)] text-[#8B0000]">Sugar Cookie Martini</h3>
+                <p class="italic text-[clamp(1rem,2vw,1.4rem)] text-gray-500 mt-1 font-light tracking-wide">vanilla cream, sweet almond, buttery smooth</p>
             </div>
 
             <div class="menu-item" onclick="openMenu('Christmas Negroni', 'crisp gin, festive clove, mellow vermouth')">
-                <h3 class="luxury-title text-[clamp(1.1rem,2.2vw,1.6rem)] text-[#8B0000]">Christmas Negroni</h3>
-                <p class="italic text-[clamp(0.95rem,1.9vw,1.3rem)] text-gray-500 mt-1 font-light tracking-wide">crisp gin, festive clove, mellow vermouth</p>
+                <h3 class="luxury-title text-[clamp(1.3rem,2.5vw,1.8rem)] text-[#8B0000]">Christmas Negroni</h3>
+                <p class="italic text-[clamp(1rem,2vw,1.4rem)] text-gray-500 mt-1 font-light tracking-wide">crisp gin, festive clove, mellow vermouth</p>
             </div>
 
             <div class="menu-item" onclick="openMenu('Cherry Manhattan', 'oaky whiskey, deep cherry, vanilla spice')">
-                <h3 class="luxury-title text-[clamp(1.1rem,2.2vw,1.6rem)] text-[#8B0000]">Cherry Manhattan</h3>
-                <p class="italic text-[clamp(0.95rem,1.9vw,1.3rem)] text-gray-500 mt-1 font-light tracking-wide">oaky whiskey, deep cherry, vanilla spice</p>
+                <h3 class="luxury-title text-[clamp(1.3rem,2.5vw,1.8rem)] text-[#8B0000]">Cherry Manhattan</h3>
+                <p class="italic text-[clamp(1rem,2vw,1.4rem)] text-gray-500 mt-1 font-light tracking-wide">oaky whiskey, deep cherry, vanilla spice</p>
             </div>
 
         </div>
@@ -374,7 +402,6 @@
 
         function closeMenu() {
             document.getElementById('modal-overlay').classList.remove('active');
-            // Check if we should re-enable overflow (only for small mobile)
             if (window.innerWidth <= 640) {
                 document.body.style.overflow = 'auto';
             } else {
